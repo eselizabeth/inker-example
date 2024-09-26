@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Bit Shifting </title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.png">
+    
+<link href="/static/bootstrap.min.css" rel="stylesheet">
+<link href="/static/custom.css" rel="stylesheet">
+
+  </head>
+  <body>
+    <div class="container" style="padding-left: 13%;padding-right: 13%;">
+      
+
+<article class="mb-5">
+  <div class="mt-5 text-end fw-light">
+    <p>Posted by liz <br> <i class="fa-regular fa-calendar"></i> 12 November 2022</p>
+  </div>
+  <content>
+    <div class="mt-5">
+      <h1 class="text-light">Bit Shifting</h1>
+      <div class="text-end">
+        <a href="/" class="text-success" style="text-decoration: none;"><i class="fa-solid fa-house"></i> Go back to main page</a>
+      </div>
+      <hr>
+      <div id="toc-div" classf="card col-md-6 offset-md-3">
+        <div id="toc" class="card-body">
+        </div>
+      </div>
+      <p class="fs-5">    
+        <p>If you encountered shifts in theorical books, C/C++ or maybe even assembly instructions and didn't perfectly understand them, I've tried my best here!</p>
+<p>Simply we have 2 shifting methods, one of them being logical and the other one being arithmetic, we can apply these methods by a direction, either left or right.</p>
+<h2>Logical Shift</h2>
+<h3>Left Logical Shift</h3>
+<p>Left logical shift simply moves everything to to left by a bit. As an example: Shifting the binary value <em>0100</em>, which is 4 bits long, to the left by one bit would result in <em>1000</em>, where the least significant bit is filled by 0, and shifting just one more bit will result in <em>0000</em> Left logical shift can be used to multiply binary values. An example of this would be like this: shifting <em>0101</em> to the left by one bit, which is equal to decimal 5, will result in <em>1010</em>, which is equal to 10 in decimal.</p>
+<h3>Right Logical Shift</h3>
+<p>This operation moves everyting to the right by one bit, as opposed to left logical shift. Shifting the value <em>1101</em> to the right by one bit, will result in, <em>0110</em> where the most significant bit filled by 0.</p>
+<p><img src="diagram1.png" alt="Untitled Diagram.drawio.png" /></p>
+<h3>Example</h3>
+<p>In most programming languages right logical shift is defined as <code>&gt;&gt;</code> whereas left logical shift is defined as <code>&lt;&lt;.</code> Lets see a real life example in C++, imagine we have a system where instructions are two bytes long and stored in the memory. And as an example instuction we have <em><strong>abxy</strong></em>, an operation that is one byte and denoted by ab. This instruction simply takes x and y and saves their sum to the first register.</p>
+<pre><code>...
+opcode = memory[pc] + memory[pc + 1];
+switch(opcode &amp; 0xFF00){
+	case 0xab00:
+		x = (opcode &amp; 0x00F0) &gt;&gt; 4;
+		y = (opcode &amp; 0x000F);
+		r1 = x + y;
+	}
+...
+</code></pre>
+<p>To get the first operand(x) we simply apply bitwise and operation, this will result every bit except the ones carrying the value of x to be 0. After that we shift the new value to the right by 4 bits to get the actual value. And to get do second operand we can get away simply by applying logical and.</p>
+<h2>Arithmetic Shift</h2>
+<h3>Left Arithmetic Shift</h3>
+<p>This is completely identical to the left logical shift.</p>
+<h3>Right Arithmetic Shift</h3>
+<p>Similarly to right logical shift, we still shift everything to right by one bit but instead of filling the most significant bit with 0, we put the current value of it. Also right arithmetic shift can be used to divide values by 2, shifting right to the by one bit <em>0100</em>, decimal 4, will result in 0010, which is equal to decimal 2. (If the number is presented by two's complement, this will preserve the sign.)</p>
+<p><img src="diagram2.png" alt="Untitled Diagram2.drawio.png" /></p>
+
+      </p>
+  </content>
+</article>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/0896d799a9.js" crossorigin="anonymous"></script>
+    
+<script>
+var headers = document.querySelectorAll("h2, h3, h4, h5, h6");
+const toc = document.getElementById('toc');
+if (headers.length == 0){
+  const toc_div = document.getElementById('toc-div');
+  toc_div.remove();
+}
+const fragment = document.createDocumentFragment();
+headers.forEach((header) =>{
+  header.id = string_to_slug(header.innerText);
+  header.className = "text-warning";
+  const anchor = document.createElement("a");
+  anchor.innerText = header.innerText;
+  anchor.href = "#" + header.id;
+  anchor.className = "text-center text-light";
+  fragment.appendChild(anchor);
+  console.log(header);
+});
+toc.appendChild(fragment);
+
+function string_to_slug (str) {
+    str = str.replace(/^\s+|\s+$/g, ''); // trim
+    str = str.toLowerCase();
+  
+    // remove accents, swap ñ for n, etc
+    var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
+    var to   = "aaaaeeeeiiiioooouuuunc------";
+    for (var i=0, l=from.length ; i<l ; i++) {
+        str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+    }
+
+    str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+        .replace(/\s+/g, '-') // collapse whitespace and replace by -
+        .replace(/-+/g, '-'); // collapse dashes
+
+    return str;
+}
+</script>
+
+
+  </body>
+</html>

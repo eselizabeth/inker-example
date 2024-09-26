@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> How to setup a virtual environment in Python 3 </title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.png">
+    
+<link href="/static/bootstrap.min.css" rel="stylesheet">
+<link href="/static/custom.css" rel="stylesheet">
+
+  </head>
+  <body>
+    <div class="container" style="padding-left: 13%;padding-right: 13%;">
+      
+
+<article class="mb-5">
+  <div class="mt-5 text-end fw-light">
+    <p>Posted by liz <br> <i class="fa-regular fa-calendar"></i> 20 November 2022</p>
+  </div>
+  <content>
+    <div class="mt-5">
+      <h1 class="text-light">How to setup a virtual environment in Python 3</h1>
+      <div class="text-end">
+        <a href="/" class="text-success" style="text-decoration: none;"><i class="fa-solid fa-house"></i> Go back to main page</a>
+      </div>
+      <hr>
+      <div id="toc-div" classf="card col-md-6 offset-md-3">
+        <div id="toc" class="card-body">
+        </div>
+      </div>
+      <p class="fs-5">    
+        <p>If you're a little bit familiar with Python you probably heard of virtual environments. They may sound like they are just a hassle at first but they are actually pretty easy and using them will definitely save you from a lot of headaches later!</p>
+<p><img src="xkcd_comic.png" alt="alt text" /></p>
+<h3>What is a virtual environment?</h3>
+<p>When you install packages with pip, it will probably install your package to a folder file where your Python interpreter is located. (You can check this with <code>pip show &lt;packageName&gt;</code>) Virtual environments are simply isolated lightweight directories where you can install packages instead of installing them system-wide. It is the recommended way to install Python packages.</p>
+<h3>Why use virtual environments in python?</h3>
+<p>In some projects, you need a different version of a library than you're currently using in your main environment. Reinstalling them to just install back is usually time-consuming. By using virtual environments you can install different versions of same the packages and avoid conflicts. This will also make it easier to setup environments for other people to use your code. 
+The only downside of using virtual environments in Python is using a little bit more disk space since there are multiple instances of the same packages.</p>
+<h3>How to use virtual environments with venv</h3>
+<p>venv has been a part of the standard Python library since 3.3 and made it easier &amp; faster for using virtual environments.
+<strong>For Linux:</strong></p>
+<ol>
+<li>Create a virtual environment
+<code>python3 -m venv &lt;path&gt;</code></li>
+<li>Activate your virtual environment
+<code>source /path/bin/activate</code></li>
+<li>Install/list packages
+<code>pip3 install &lt;packageName&gt;</code>
+<code>pip3 list</code>
+Screenshot:
+<img src="linux_venv.png" alt="alt text" />
+<strong>For Windows:</strong></li>
+<li>Create a virtual environment
+<code>python3 -m venv &lt;path&gt;</code></li>
+<li>Activate your virtual environment
+<code>C:\&gt; &lt;venv&gt;\Scripts\activate.bat</code></li>
+<li>Install/list packages
+<code>pip3 install &lt;packageName&gt;</code>
+<code>pip3 list</code>	
+Screenshot:
+<img src="windows_venv.png" alt="alt text" /></li>
+</ol>
+<p>You can leave the virtual environment by closing the terminal or using the <code>deactivate</code> command.</p>
+<h3>How to use virtual environment with virtualenv</h3>
+<p>This was the most common way to use virtual environments in Python before the integration of venv into standard library.
+<strong>For Linux:</strong></p>
+<ol>
+<li>Install virtualenv
+<code>pip install virtualenv</code></li>
+<li>Create a virtual environment
+<code>virtualenv &lt;path&gt;</code></li>
+<li>Activate your virtual environment
+<code>source /path/bin/activate</code></li>
+<li>Install/list packages
+<code>pip install &lt;packageName&gt;</code>
+<code>pip list</code>
+Screenshot:
+<img src="linux_virtualenv.png" alt="alt text" />
+<strong>For Windows:</strong></li>
+<li>Install virtualenv
+<code>pip install virtualenv</code></li>
+<li>Create a virtual environment
+<code>virtualenv &lt;path&gt;</code></li>
+<li>Activate your virtual environment
+<code>path\Scripts\activate</code></li>
+<li>Install/list packages
+<code>pip install &lt;packageName&gt;</code>
+<code>pip list</code>
+Screenshot:
+<img src="windows_virtualenv.png" alt="alt text" />
+You can leave the virtual environment by closing the terminal or using the <code>deactivate</code> command.</li>
+</ol>
+<h3>What about the others?</h3>
+<p><strong>pyenv</strong>: If you need to work with multiple versions of Python this is your best choice. Unfortunately, this option is only available for Linux and you need Windows Subsystem for Linux to run on Windows.
+<strong>poetry</strong>: Poetry preserves its easiness meanwhile having way more capabilities than other libraries such as virtualenv. You can also separate development and production within an environment with poetry. It also makes publishing packages to PyPi much easier.
+<strong>pipenv</strong>: Pipenv is one of the most functional virtual environment tools. Due to this, it might be complex for new users.
+<strong>Conda</strong>: If you work with notebooks you might hear or even used Anaconda. It is ideal for working with data science and related tasks but may be heavyweight for other uses.</p>
+
+      </p>
+  </content>
+</article>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/0896d799a9.js" crossorigin="anonymous"></script>
+    
+<script>
+var headers = document.querySelectorAll("h2, h3, h4, h5, h6");
+const toc = document.getElementById('toc');
+if (headers.length == 0){
+  const toc_div = document.getElementById('toc-div');
+  toc_div.remove();
+}
+const fragment = document.createDocumentFragment();
+headers.forEach((header) =>{
+  header.id = string_to_slug(header.innerText);
+  header.className = "text-warning";
+  const anchor = document.createElement("a");
+  anchor.innerText = header.innerText;
+  anchor.href = "#" + header.id;
+  anchor.className = "text-center text-light";
+  fragment.appendChild(anchor);
+  console.log(header);
+});
+toc.appendChild(fragment);
+
+function string_to_slug (str) {
+    str = str.replace(/^\s+|\s+$/g, ''); // trim
+    str = str.toLowerCase();
+  
+    // remove accents, swap ñ for n, etc
+    var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
+    var to   = "aaaaeeeeiiiioooouuuunc------";
+    for (var i=0, l=from.length ; i<l ; i++) {
+        str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+    }
+
+    str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+        .replace(/\s+/g, '-') // collapse whitespace and replace by -
+        .replace(/-+/g, '-'); // collapse dashes
+
+    return str;
+}
+</script>
+
+
+  </body>
+</html>
